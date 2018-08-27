@@ -12,9 +12,9 @@
 
 <body class="inside">
   <!-- Beginning header -->
-  <header>
+  <header role="banner">
     <!-- Beginning nav -->
-    <nav>
+    <nav  role="navigation">
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
     <!-- Beginning breadcrumb -->
@@ -27,17 +27,17 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent">
+  <main role="main" id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
+    <section role="region" aria-label="google map" id="map-container">
       <div id="map"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
-    <section id="restaurant-container">
+    <section role="region"  id="restaurant-container">
       <h1 id="restaurant-name"></h1>
       <div id="restaurant-desc">
-        <img id="restaurant-img">
+        <img id="restaurant-img" alt="restaurant image">
         <p id="restaurant-cuisine"></p>
       </div>
       <div id="restaurant-desc">
