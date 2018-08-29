@@ -1,6 +1,7 @@
+const version = 'v1';
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('mws').then((cache) => {
+    caches.open(version).then((cache) => {
       return cache.addAll([
         '/',
         '/index.html',
@@ -32,18 +33,27 @@ self.addEventListener('install', (event) => {
  
  self.addEventListener('activate', (event) => {
    console.log('service worker active...');
-   //todo
+   var cacheWhitelist = [version];
+    event.waitUntil(
+      caches.keys().then(function(keyList) {
+        return Promise.all(keyList.map(function(key) {
+          if (cacheWhitelist.indexOf(key) === -1) {
+            return caches.delete(key);
+          }
+        }));
+      })
+    );
  });
  
  self.addEventListener('fetch', (event) => {
-   event.respondWith(
-     caches.open('mws').then((cache) => {
-       return cache.match(event.request).then((response) => {
-         return response || fetch(event.request).then((response) => {
-           cache.put(event.request, response.clone());
-           return response;
-         });
-       });
-     })
-   );
+  event.respondWith(
+    caches.match(event.request).then(function(resp) {
+      return resp || fetch(event.request).then(function(response) {
+        return caches.open(version).then(function(cache) {
+          cache.put(event.request, response.clone());
+          return response;
+        });  
+      });
+    })
+  );
  });
