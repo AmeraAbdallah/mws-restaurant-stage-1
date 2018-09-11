@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/AmeraAbdallah/mws-restaurant-stage-1#readme",
   "dependencies": {
-    "grunt-responsive-images": "^1.10.1"
+    "grunt-responsive-images": "^1.10.1",
+    "idb": "^2.1.3"
   }
 }

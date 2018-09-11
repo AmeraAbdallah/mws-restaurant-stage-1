@@ -14,17 +14,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('/sw-test/sw.js', {scope: '/sw-test/'})
-//   .then(function(reg) {
-//     // registration worked
-//     console.log('Registration succeeded. Scope is ' + reg.scope);
-//   }).catch(function(error) {
-//     // registration failed
-//     console.log('Registration failed with ' + error);
-//   });
-// }
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -149,6 +138,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
+    console.log(restaurant);
   });
   addMarkersToMap();
 }
@@ -157,6 +147,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML.
  */
 createRestaurantHTML = (restaurant) => {
+  
   const li = document.createElement('li');
   li.role = 'listitem';
   const image = document.createElement('img');

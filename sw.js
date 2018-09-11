@@ -1,4 +1,4 @@
-const version = 'v1';
+const version = 'v6';
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(version).then((cache) => {
@@ -10,7 +10,7 @@ self.addEventListener('install', (event) => {
         '/js/dbhelper.js',
         '/js/main.js',
         '/js/restaurant_info.js',
-        '/data/restaurants.json',
+        // '/data/restaurants.json',
         '/img/',
         '/img/1.jpg',
         '/img/2.jpg',
