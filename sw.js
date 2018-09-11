@@ -1,4 +1,4 @@
-const version = 'v6';
+const version = 'v8';
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(version).then((cache) => {
@@ -10,7 +10,6 @@ self.addEventListener('install', (event) => {
         '/js/dbhelper.js',
         '/js/main.js',
         '/js/restaurant_info.js',
-        // '/data/restaurants.json',
         '/img/',
         '/img/1.jpg',
         '/img/2.jpg',
@@ -47,7 +46,7 @@ self.addEventListener('install', (event) => {
  
  self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(function(resp) {
+    caches.match(event.request, {'ignoreSearch':true}).then(function(resp) {
       return resp || fetch(event.request).then(function(response) {
         return caches.open(version).then(function(cache) {
           cache.put(event.request, response.clone());
