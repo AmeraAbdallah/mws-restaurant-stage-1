@@ -36,7 +36,6 @@ class DBHelper {
 
     });
   }
-
   /**
    * Fetch a restaurant by its ID.
    */
@@ -158,24 +157,25 @@ class DBHelper {
    */
   static imageUrlForRestaurant(restaurant) {
     if(restaurant.id === 10){
-      return (`/img/10.jpg`);
+      return (`/dist/img/10.jpg`);
     }
-    return (`/img/${restaurant.photograph}.jpg`);
+    return (`/dist/img/${restaurant.photograph}.jpg`);
   }
 
   /**
    * Map marker for a restaurant.
    */
+
   static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
+    // https://leafletjs.com/reference-1.3.0.html#marker  
+    const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng],
+      {title: restaurant.name,
+      alt: restaurant.name,
+      url: DBHelper.urlForRestaurant(restaurant)
+      })
+      marker.addTo(newMap);
     return marker;
-  }
+  } 
 
 }
 
