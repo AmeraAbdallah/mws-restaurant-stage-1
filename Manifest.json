@@ -11,8 +11,8 @@
         "sizes": "96x96",
         "type": "image/png"
     },{
-        "src": "l",
-        "sizes": "/icons/icon-RR-128x128.png",
+        "src": "/icons/icon-RR-128x128.png",
+        "sizes": "128x128",
         "type": "image/png"
     },{
         "src": "/icons/icon-RR-144x144.png",
@@ -37,6 +37,6 @@
     }],
     "background_color": "#a52a2a",
     "theme_color": "#a52a2a",
-    "display": "standalone",
+    "display": "fullscreen",
     "orientation": "portrait"
 }
