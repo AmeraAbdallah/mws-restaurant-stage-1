@@ -11,7 +11,7 @@ function addToRestaurantOS(data){
         store.put(data,"restaurants");
         return tx.complete;
     }).then(()=>{
-        console.log('added Items to the  store :) ');
+        // console.log('added Items to the  store :) ');
     }).catch((error) => {
         console.log(error);
     });
@@ -29,7 +29,7 @@ function getFromRestaurantOS(){
                 resolve(restaurants);
             else 
                 reject('no data');
-            console.log(' done successfuly !');
+            // console.log(' done successfuly !');
         }).catch((error) => {
             reject('no data');
             console.log(error);

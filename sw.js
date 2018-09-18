@@ -23,7 +23,7 @@ self.addEventListener('install', (event) => {
         '/dist/img/9.jpg',
         '/dist/img/10.jpg',
       ]).then(() => {
-       console.log('urls cached successfuly ');
+      //  console.log('urls cached successfuly ');
       }).catch((error) => {
        console.log('some thing wrong : ', error);
       })
@@ -32,7 +32,7 @@ self.addEventListener('install', (event) => {
  });
  
  self.addEventListener('activate', (event) => {
-   console.log('service worker active...');
+  //  console.log('service worker active...');
    var cacheWhitelist = [version];
     event.waitUntil(
       caches.keys().then(function(keyList) {

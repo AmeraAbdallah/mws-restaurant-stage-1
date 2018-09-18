@@ -18,17 +18,17 @@ class DBHelper {
    */
   static fetchRestaurants(callback) {
     getFromRestaurantOS().then((restauranrts)=>{
-      console.log('promise resolvee',restauranrts);
+      // console.log('promise resolvee',restauranrts);
       callback(null,restauranrts);
     }).catch((error)=>{
-      console.log('promise reject',error);
+      // console.log('promise reject',error);
 
       fetch(`${DBHelper.DATABASE_URL}/restaurants`).then((response) => {
         return response.json();
       }).then((json) => {
         addToRestaurantOS(json);
         callback(null,json);
-        console.log('fetched');
+        // console.log('fetched');
       }).catch((err) => {
         const error = (`Request failed. Returned status of ${err}`);
         callback(error, null);

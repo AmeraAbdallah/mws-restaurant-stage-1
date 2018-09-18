@@ -7,7 +7,7 @@ var markers = [];
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js')
     .then(function(registration) {
-      console.log('Service Worker registration worked');
+      // console.log('Service Worker registration worked');
     })
     .catch(function(error) {
       console.log('Service Worker registration failed ',error);
@@ -143,7 +143,7 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
-    console.log(restaurant);
+    // console.log(restaurant);
   });
   addMarkersToMap();
 }
