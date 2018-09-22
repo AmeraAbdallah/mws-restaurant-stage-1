@@ -37,6 +37,30 @@ class DBHelper {
     });
   }
   /**
+   * Fetch Reviews.
+   */
+  static fetchReviewsByRestId(id) {
+    const promise = new Promise((resolve, reject)=>{
+      fetch(`${DBHelper.DATABASE_URL}/reviews/?restaurant_id=${id}`).then((response) => {
+          console.log('fetched');
+          return response.json();
+      }).then((json) => {
+          addToReviewsOS(json);
+          resolve(json);
+      }).catch((err) => {
+          console.log(`Request failed. Reviews failed fetched .. ${err}`);
+            getFromReviewsOS(id).then((reviews)=>{
+                console.log('promise hh resolvee',reviews);
+                resolve(reviews);
+            }).catch((error)=>{
+                console.log('promise  hh reject',error);
+                reject(error);
+            });
+      });
+    });
+    return promise ;
+  }
+  /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {

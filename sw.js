@@ -1,4 +1,4 @@
-const version = 'sw-v5';
+const version = 'sw-v6';
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(version).then((cache) => {
@@ -46,6 +46,13 @@ self.addEventListener('install', (event) => {
  });
  
  self.addEventListener('fetch', (event) => {
+  // ignoring cachind review requests
+  var request = event.request;
+    if (request.method === 'GET' && request.url.startsWith( `http://localhost:1337/reviews/?restaurant_id=`)) {
+        event.respondWith(fetch(request));
+        // console.log(request);
+        return;
+    }
   event.respondWith(
     caches.match(event.request, {'ignoreSearch':true}).then(function(resp) {
       return resp || fetch(event.request).then(function(response) {
