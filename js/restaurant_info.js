@@ -181,3 +181,66 @@ const getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+//add review on screen when submit 
+const addToScreen = (review) => {
+  
+  
+  const li = document.createElement('li');
+  if(!navigator.onLine){
+    console.log('offline');
+    li.setAttribute("class","offline");
+  }
+  const name = document.createElement('p');
+  name.innerHTML = review.name;
+  li.appendChild(name);
+
+  const date = document.createElement('p');
+  date.innerHTML = new Date().toDateString();
+  li.appendChild(date);
+
+  const rating = document.createElement('p');
+  rating.innerHTML = `Rating: ${review.rating}`;
+  li.appendChild(rating);
+
+  const comments = document.createElement('p');
+  comments.innerHTML = review.comments;
+  li.appendChild(comments);
+
+  console.log(li);
+  document.getElementById('reviews-list').appendChild(li);
+}
+//on add review form submition
+const sendReview = () => {
+  event.preventDefault();
+  document.getElementById('send-review').disabled = true;
+  const name = document.getElementById('name').value ;
+  const rating = document.getElementById('rate').value;
+  const review = document.getElementById('review').value;
+  const restaurantId = parseInt(getParameterByName('id'));
+  if (name.trim() === ''){
+    document.getElementById('name-error').innerHTML = '<p style="color:red"> ! not valid, Enter Your name .</p>';
+  }else{
+    document.getElementById('name-error').innerHTML = '';
+  }
+  if(review.trim() === ''){
+    document.getElementById('review-error').innerHTML = '<p style="color:red"> ! not valid, Enter Your review . </p>';
+  }else{
+    document.getElementById('review-error').innerHTML = '';
+  }
+  if(name.trim() !== '' && review.trim() !== ''){
+    const reviewData = {
+      restaurant_id: restaurantId ,
+      name: name ,
+      rating: rating ,
+      comments: review,
+      createdAt: new Date().getTime(),
+    };
+
+    DBHelper.addReview(reviewData);
+    addToScreen(reviewData);
+    document.getElementById('name').value = '' ;
+    document.getElementById('rate').value = 1 ;
+    document.getElementById('review').value = '';
+  }
+  document.getElementById('send-review').disabled = false;
+}

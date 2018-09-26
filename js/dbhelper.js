@@ -61,6 +61,80 @@ class DBHelper {
     return promise ;
   }
   /**
+   * send review when offline
+   */
+  static sendReviewsWhenOnline(review){
+    // localStorage.setItem('offlineReview-'+review.id, JSON.stringify(review));
+    addToOffReviewsOS(review);
+    window.addEventListener('online', (event)=>{
+      console.log('online');
+      // const rev = JSON.parse(localStorage.getItem('offlineReview-'+review.id));
+      getFromOffReviewsOS(review.restaurant_id).then((reviews)=>{
+        reviews.map((review)=>{
+          DBHelper.addReview(review);
+        });
+      }).catch((err)=>{
+      });
+      let elements = document.querySelectorAll('.offline');
+
+      [].forEach.call(elements, function(element) {
+        element.classList.remove('offline');
+      });
+
+      clearOffReviewsOS();
+      // Document.querySelectorAll('.offline').map((element)=>{
+      //   element.classList.remove('offline');
+      // });
+      // let reviewsList = document.querySelector('.offline');
+      // console.log(reviewsList);
+      // reviewsList.foreach((reviewItem)=>{
+      //   reviewItem.classList.remove('offline');
+      // });
+
+      
+      // [...document.querySelectorAll]('.offline').map((element)=>{
+      //   element.classList.remove('offline');
+      // });
+      localStorage.removeItem('offlineReview-'+review.id);
+    });
+  }
+  /**
+   * send review
+   */
+  static addReview(review) {
+    console.log(review + "dsf");
+    // let offlineReview = {
+    //   name : 'addReview',
+    //   data : review
+    // };
+
+    if(!navigator.onLine){
+      // if offline
+      console.log('offline');
+      DBHelper.sendReviewsWhenOnline(review);
+      return;
+    }
+    let rev = {
+      restaurant_id: review.restaurant_id ,
+      name: review.name ,
+      rating: review.rating ,
+      comments: review.comments,
+    };
+    var url = 'http://localhost:1337/reviews/';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(rev),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then((json) => {
+      // addToReviewsOS(json); 
+      console.log(json);
+    })
+    .catch(error => console.error('Error:', error));
+  }
+  /**
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {

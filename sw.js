@@ -53,6 +53,11 @@ self.addEventListener('install', (event) => {
         // console.log(request);
         return;
     }
+    if (request.method === 'POST' && request.url.startsWith( `http://localhost:1337/reviews/`)) {
+        event.respondWith(fetch(request));
+        // console.log(request);
+        return;
+    }
   event.respondWith(
     caches.match(event.request, {'ignoreSearch':true}).then(function(resp) {
       return resp || fetch(event.request).then(function(response) {

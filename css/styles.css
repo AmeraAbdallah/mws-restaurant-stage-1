@@ -250,6 +250,49 @@ nav h1 a {
   display: flex;
   flex-wrap: wrap; 
 }
+#form-container{
+  border-bottom: 1px solid #d9d9d9;
+  border-top: 1px solid #fff;
+  padding: 30px 40px 30px;
+}
+/* #form-container form{
+  margin: auto;
+  text-align: -webkit-center;
+} */
+label{
+  font-size: 15px;
+  color: black;
+  width: 150px;
+  display: inline-block;
+}
+#reviewLabel{
+  height: 60px;
+  margin: auto;
+}
+#name, #rate{
+  height: 30px;
+} 
+ #review{
+  height: 60px;
+}
+#name, #rate, #review{
+  width: 150px;
+}
+#form-container form button{
+  width: 80px;
+  height: 50px;
+  font-size: 15px;
+  background-color: #a52a2a;
+  box-shadow: #333;
+  border: transparent;
+  color: #f3f3f3;
+  transition-duration: 1s;
+}
+#form-container form button:hover{
+  background-color: #f3f3f3;
+  color: #a52a2a;
+  font-size: 20px;
+}
 #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
@@ -262,6 +305,9 @@ nav h1 a {
 }
 #restaurant-hours td {
   font-size: 20px;
+}
+.offline{
+  border: #a52a2a 1px solid !important;
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -294,7 +340,6 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
-
 @media screen and (max-width: 564px) {
   .filter-options {
     height: 130px;
