@@ -24,9 +24,9 @@ function addToOffReviewsOS(reviews){
         }
         return tx.complete;
     }).then(()=>{
-         console.log('added Items to review  store :) ');
+        //  console.log('added Items to review  store :) ');
     }).catch((error) => {
-        console.log(error);
+        // console.log(error);
     });
 }
     
@@ -38,16 +38,16 @@ function getFromOffReviewsOS(rest_id){
             const index = store.index('restaurant');
             const reviews = index.getAll(rest_id);
             // console.log(reviews.json());
-            console.log('get items from store ..');
+            // console.log('get items from store ..');
             return reviews;
         }).then((reviews)=>{
             if(reviews){
-                console.log('get items from store ..');
+                // console.log('get items from store ..');
                 resolve(reviews);
             }
             else 
                 reject('no reviews');
-                console.log(reviews);
+                // console.log(reviews);
         }).catch((error) => {
             reject('no data');
             console.log(error);
@@ -55,54 +55,6 @@ function getFromOffReviewsOS(rest_id){
     });
     return promise;
 }
-
-
-
-// function addToOffReviewsOS(reviews){
-//     dbPromise.then((db) => {
-//         const tx = db.transaction('off_reviews', 'readwrite');
-//         const store = tx.objectStore('off_reviews');
-//         if(Array.isArray(reviews)){
-//             reviews.map((review)=>{
-//                 store.put(review);
-//             });
-//         }else{
-//             console.log(reviews);
-//             store.put(reviews,'off_reviews');
-//         }
-//         return tx.complete;
-//     }).then(()=>{
-//          console.log('added Items to off review  store :) ');
-//     }).catch((error) => {
-//         console.log(error);
-//     });
-// }
-
-// function getFromOffReviewsOS(rest_id){
-//     const  promise = new Promise (function(resolve, reject){
-//         dbPromise.then((db) => {
-//             const tx = db.transaction('off_reviews', 'readwrite');
-//             const store = tx.objectStore('off_reviews');
-//             const index = store.index('restaurant');
-//             const reviews = index.getAll(rest_id);
-//             // console.log(reviews.json());
-//             console.log('get items from off reviews store ..');
-//             return reviews;
-//         }).then((reviews)=>{
-//             if(reviews){
-//                 console.log('get items from store ..');
-//                 resolve(reviews);
-//             }
-//             else 
-//                 reject('no reviews');
-//                 console.log(reviews);
-//         }).catch((error) => {
-//             reject('no data');
-//             console.log(error);
-//         });
-//     });
-//     return promise;
-// }
 
 function clearOffReviewsOS(){
         dbPromise.then((db) => {
@@ -112,7 +64,7 @@ function clearOffReviewsOS(){
             store.clear();
             return tx.complete;
         }).then(()=>{
-            console.log('cleared');
+            // console.log('cleared');
         }).catch((error) => {
             console.log(error);
         });
@@ -131,12 +83,12 @@ function addToReviewsOS(reviews){
         }
         return tx.complete;
     }).then(()=>{
-         console.log('added Items to review  store :) ');
+        //  console.log('added Items to review  store :) ');
     }).catch((error) => {
         console.log(error);
     });
 }
-    
+
 function getFromReviewsOS(rest_id){
     const  promise = new Promise (function(resolve, reject){
         dbPromise.then((db) => {
@@ -145,7 +97,7 @@ function getFromReviewsOS(rest_id){
             const index = store.index('restaurant');
             const reviews = index.getAll(rest_id);
             // console.log(reviews.json());
-            console.log('get items from store ..');
+            // console.log('get items from store ..');
             return reviews;
         }).then((reviews)=>{
             if(reviews){

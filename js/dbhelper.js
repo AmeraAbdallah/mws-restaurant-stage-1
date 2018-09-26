@@ -50,10 +50,10 @@ class DBHelper {
       }).catch((err) => {
           console.log(`Request failed. Reviews failed fetched .. ${err}`);
             getFromReviewsOS(id).then((reviews)=>{
-                console.log('promise hh resolvee',reviews);
+                // console.log('promise hh resolvee',reviews);
                 resolve(reviews);
             }).catch((error)=>{
-                console.log('promise  hh reject',error);
+                // console.log('promise  hh reject',error);
                 reject(error);
             });
       });
@@ -64,11 +64,10 @@ class DBHelper {
    * send review when offline
    */
   static sendReviewsWhenOnline(review){
-    // localStorage.setItem('offlineReview-'+review.id, JSON.stringify(review));
+
     addToOffReviewsOS(review);
     window.addEventListener('online', (event)=>{
       console.log('online');
-      // const rev = JSON.parse(localStorage.getItem('offlineReview-'+review.id));
       getFromOffReviewsOS(review.restaurant_id).then((reviews)=>{
         reviews.map((review)=>{
           DBHelper.addReview(review);
@@ -82,34 +81,15 @@ class DBHelper {
       });
 
       clearOffReviewsOS();
-      // Document.querySelectorAll('.offline').map((element)=>{
-      //   element.classList.remove('offline');
-      // });
-      // let reviewsList = document.querySelector('.offline');
-      // console.log(reviewsList);
-      // reviewsList.foreach((reviewItem)=>{
-      //   reviewItem.classList.remove('offline');
-      // });
-
-      
-      // [...document.querySelectorAll]('.offline').map((element)=>{
-      //   element.classList.remove('offline');
-      // });
-      localStorage.removeItem('offlineReview-'+review.id);
     });
   }
   /**
    * send review
    */
   static addReview(review) {
-    console.log(review + "dsf");
-    // let offlineReview = {
-    //   name : 'addReview',
-    //   data : review
-    // };
-
+    // console.log(review + "dsf");
+    
     if(!navigator.onLine){
-      // if offline
       console.log('offline');
       DBHelper.sendReviewsWhenOnline(review);
       return;
@@ -130,7 +110,7 @@ class DBHelper {
     }).then(response => response.json())
     .then((json) => {
       // addToReviewsOS(json); 
-      console.log(json);
+      // console.log(json);
     })
     .catch(error => console.error('Error:', error));
   }

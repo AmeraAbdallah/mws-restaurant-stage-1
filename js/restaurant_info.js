@@ -183,8 +183,6 @@ const getParameterByName = (name, url) => {
 }
 //add review on screen when submit 
 const addToScreen = (review) => {
-  
-  
   const li = document.createElement('li');
   if(!navigator.onLine){
     console.log('offline');
@@ -205,8 +203,7 @@ const addToScreen = (review) => {
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
   li.appendChild(comments);
-
-  console.log(li);
+  // console.log(li);
   document.getElementById('reviews-list').appendChild(li);
 }
 //on add review form submition
