@@ -173,11 +173,39 @@ const createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
+  const fav = document.createElement('h4');
+  fav.innerHTML = '★';
+  fav.classList.add('fav_btn');
+  // fav.innerHTML = '☆';
+  if(restaurant.is_favorite === "true"){
+    fav.classList.add('favourite');
+  }
+
+  fav.onclick = function(){
+    let isFav;
+    if(restaurant.is_favorite === "true"){
+      isFav ="false";
+    }else{
+      isFav = "true";
+    }
+    fav.classList.toggle('favourite');
+    if(!navigator.onLine){
+      restaurant.is_favorite = isFav;
+      DBHelper.handleFavouriteWheneOffline(isFav,restaurant);  
+      return;
+    }
+    restaurant.is_favorite = isFav;
+    DBHelper.handleFavourite(isFav,restaurant); 
+    
+  }
+
+  li.append(fav);
+
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   more.setAttribute('aria-label', 'View Details of ' + restaurant.name);
-  li.append(more)
+  li.append(more);
 
   return li
 }

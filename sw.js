@@ -1,4 +1,4 @@
-const version = 'sw-v6';
+const version = 'ssssw-v7';
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(version).then((cache) => {
@@ -58,6 +58,20 @@ self.addEventListener('install', (event) => {
         // console.log(request);
         return;
     }
+    if (request.method === 'PUT' && request.url.startsWith( `http://localhost:1337/restaurants/`)) {
+        event.respondWith(fetch(request));
+        // console.log(request);
+        return;
+    }
+    if(request.url.startsWith( `http://localhost:1337`)){
+      event.respondWith(fetch(request));
+      return;
+    }
+    if(request.method === 'GET' && request.url.startsWith( `http://localhost:1337/restaurants/`)){
+      event.respondWith(fetch(request));
+      return;
+    }
+    
   event.respondWith(
     caches.match(event.request, {'ignoreSearch':true}).then(function(resp) {
       return resp || fetch(event.request).then(function(response) {

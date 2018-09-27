@@ -1,7 +1,9 @@
 
 const dbPromise = idb.open('restaurantDb', 3, (upgradeDb) => {
     switch(upgradeDb.oldVersion){
-        case 0: upgradeDb.createObjectStore('restaurants');
+        case 0: const restarantstore = upgradeDb.createObjectStore('restaurants');
+        restarantstore.createIndex('restaurants', 'id');
+        
         case 1: const reviewStore = upgradeDb.createObjectStore('reviews',{
                 keyPath: 'id'
             });
@@ -119,6 +121,7 @@ function addToRestaurantOS(data){
     dbPromise.then((db) => {
         const tx = db.transaction('restaurants', 'readwrite');
         const store = tx.objectStore('restaurants');
+        // data.forEach((restaurant) =>{store.put(restaurant)});
         store.put(data,"restaurants");
         return tx.complete;
     }).then(()=>{
@@ -140,7 +143,7 @@ function getFromRestaurantOS(){
                 resolve(restaurants);
             else 
                 reject('no data');
-            // console.log(' done successfuly !');
+            console.log(' done successfuly !' , restaurants);
         }).catch((error) => {
             reject('no data');
             console.log(error);
@@ -149,4 +152,20 @@ function getFromRestaurantOS(){
     return promise;
 }
 
+function updateFavoriteRestaurantOS(restaurant){
+
+    dbPromise.then((db) => {
+        const tx = db.transaction('restaurants', 'readwrite');
+        const store = tx.objectStore('restaurants').index('id');
+        // const restaurant = store.get(restaurant_id);
+        // restaurant.is_favorite = isFavorite ;
+        store.put(restaurant);
+        tx.complete;
+    }).then(()=>{
+        
+    }).catch((error) => {
+        console.log(error);
+    });
+
+}
       

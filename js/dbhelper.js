@@ -17,11 +17,11 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    getFromRestaurantOS().then((restauranrts)=>{
-      // console.log('promise resolvee',restauranrts);
-      callback(null,restauranrts);
-    }).catch((error)=>{
-      // console.log('promise reject',error);
+    // getFromRestaurantOS().then((restauranrts)=>{
+    //   // console.log('promise resolvee',restauranrts);
+    //   callback(null,restauranrts);
+    // }).catch((error)=>{
+    //   // console.log('promise reject',error);
 
       fetch(`${DBHelper.DATABASE_URL}/restaurants`).then((response) => {
         return response.json();
@@ -30,11 +30,14 @@ class DBHelper {
         callback(null,json);
         // console.log('fetched');
       }).catch((err) => {
-        const error = (`Request failed. Returned status of ${err}`);
-        callback(error, null);
+        getFromRestaurantOS().then((restaurants)=>{
+          callback(null,restaurants);
+        }).catch((error)=>{
+          callback(error, null);
+        });
       });
 
-    });
+    // });
   }
   /**
    * Fetch Reviews.
@@ -254,6 +257,25 @@ class DBHelper {
       marker.addTo(newMap);
     return marker;
   } 
+  static handleFavouriteWheneOffline(isFav, restaurant) {
+    window.addEventListener('online', (event)=>{
+      DBHelper.handleFavourite(isFav, restaurant);
+    });
+  }
+  static handleFavourite(isFav,restaurant) {
+
+    fetch(`${DBHelper.DATABASE_URL}/restaurants/${restaurant.id}/?is_favorite=${isFav}`,{
+      method: 'PUT'
+    }).then((response) => {
+      return response.json();
+    }).then((json) => {
+      updateFavoriteRestaurantOS(restaurant) ;
+      console.log('test '+json).stringify();
+    }).catch((err) => {
+      const error = (`Request failed. Returned status of ${err}`);
+      console.log(error);
+    });
+  }
 
 }
 

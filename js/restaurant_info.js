@@ -6,6 +6,7 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
+  initRevews();
 });
  /**
  * Initialize leaflet map
@@ -32,7 +33,21 @@ const initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
     }
   });
-}  
+} 
+/**
+ * initial reviews incase any offline reviews didnt pass because user refreshed the page
+ */
+const initRevews = ()=>{
+  
+  getFromOffReviewsOS(review.restaurant_id).then((reviews)=>{
+    reviews.map((review)=>{
+      DBHelper.addReview(review);
+    });
+  }).catch((err)=>{
+  });
+  let elements = document.querySelectorAll('.offline');
+  clearOffReviewsOS();
+}
 /**
  * Get current restaurant from page URL.
  */

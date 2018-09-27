@@ -151,7 +151,7 @@ nav h1 a {
   border: 2px solid #ccc;
   font-family: Arial,sans-serif;
   margin: 0.6%;
-  height: 340px;
+  height: 390px;
   padding: 0 20px;/* 30px 25px;*/
   text-align: center;
   /* width: 232px;  */
@@ -339,6 +339,23 @@ label{
 }
 #restaurant-hours td {
   color: #666;
+}
+.favourite{
+  /* font-size: 55px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin: 5px auto; */
+  color: gold;
+}
+.fav_btn{
+  font-size: 55px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  margin: 5px auto;
 }
 @media screen and (max-width: 564px) {
   .filter-options {
